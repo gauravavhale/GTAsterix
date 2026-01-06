@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dynamic List with Props</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      .card {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Dynamic List Rendering with Props</h2>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+      
+      function ProductList({ products }) {
+        return (
+          <div>
+            {products.map(product => (
+              <div className="card" key={product.id}>
+                <h4>{product.name}</h4>
+                <p>Price: ₹{product.price}</p>
+              </div>
+            ))}
+          </div>
+        );
+      }
+
+      function App() {
+        const productsData = [
+          { id: 1, name: "Laptop", price: 50000 },
+          { id: 2, name: "Mobile", price: 20000 },
+          { id: 3, name: "Headphones", price: 3000 },
+          { id: 3, name: "Bike", price: 6000 },
+        ];
+
+        return (
+          <div>
+            <ProductList products={productsData} />
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+      
+    </script>
+  </body>
+</html>

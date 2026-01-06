@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        function createComponent(type,text){
+            return {
+                type,
+                text, 
+                    render(){
+                        const el = document.createElement(type);
+                        el.textContent = this.text;
+                        return el;
+                    }
+            }
+        }
+                
+        const heading = createComponent("h1","Hello World..")
+        const paragraph = createComponent("p", "This  is a Factory Component")
+        
+        document.body.appendChild(heading.render());
+        document.body.appendChild(paragraph.render());
+
+    </script>
+
+</body>
+</html>

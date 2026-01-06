@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Output File</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+      const ExpensiveRender = React.memo( function ({number}) {
+        console.log("Expensive Comp Rendered")
+        let total = 0;
+        for (let i = 0; i < 1_000_000; i++) {
+            total += i;
+        }
+        return <h2>Result for {number}</h2>;
+      })
+
+      function App () {
+
+        const {useState} = React ;
+        const [count,setCount] = useState(0)
+
+        const increment=()=>{
+            console.log("Increment")
+            setCount(count+1)
+        }
+
+        const decrement=()=>{
+            console.log("Decrement")
+            setCount(count-1)
+        }
+
+        return (
+          <div>
+            <div>{count}</div>
+            <button onClick={increment}>Increment</button>
+            <button onClick={decrement}>Decrement</button>
+
+            <ExpensiveRender number={10}/>
+
+          </div>
+        )
+      }
+      
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+      
+    </script>
+  </body>
+</html>

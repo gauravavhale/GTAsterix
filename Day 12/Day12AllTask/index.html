@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Modern RHF Registration Form</title>
+
+  <!-- React & ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- React Hook Form (UMD) -->
+  <script src="https://unpkg.com/react-hook-form@7/dist/index.umd.js"></script>
+
+  <!-- Yup via CDN -->
+  <script type="module">
+    import * as Yup from "https://esm.sh/yup@1.2.0";
+    window.Yup = Yup;
+  </script>
+
+  <!-- Babel for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <link rel="stylesheet" href="./form.css">
+
+  <style>
+    
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useForm } = ReactHookForm;
+    const { object, string, ref } = window.Yup;
+
+    function App() {
+      const validationSchema = object({
+        name: string().required("Name is required"),
+        email: string().email("Invalid email format").required("Email is required"),
+        password: string()
+          .min(6, "Password must be at least 6 characters")
+          .notOneOf(["123456", "password"], "Password is too weak")
+          .required("Password is required"),
+        confirmPassword: string()
+          .oneOf([ref("password")], "Passwords must match")
+          .required("Confirm Password is required")
+      });
+
+      const {
+        register,
+        handleSubmit,
+        formState: { errors, dirtyFields },
+        trigger
+      } = useForm({
+        mode: "onBlur",
+        resolver: async (data) => {
+          try {
+            const validated = await validationSchema.validate(data, { abortEarly: false });
+            return { values: validated, errors: {} };
+          } catch (err) {
+            const formErrors = {};
+            err.inner.forEach((error) => {
+              formErrors[error.path] = { message: error.message };
+            });
+            return { values: {}, errors: formErrors };
+          }
+        }
+      });
+
+      const onSubmit = (data) => {
+        alert("Registration Success!\n\n" + JSON.stringify(data, null, 2));
+      };
+
+      const getInputClass = (name) => {
+        if (errors[name]) return "error-input";
+        if (dirtyFields[name]) return "valid-input";
+        return "";
+      };
+
+      return (
+        <div className="form-container">
+          <h2>Create Account</h2>
+          <form onSubmit={handleSubmit(onSubmit)}>
+
+            <div className="form-group">
+              <input
+                className={getInputClass("name")}
+                placeholder="Name"
+                {...register("name")}
+                onBlur={() => trigger("name")}
+              />
+              <div className="error">{errors.name?.message}</div>
+            </div>
+
+            <div className="form-group">
+              <input
+                className={getInputClass("email")}
+                placeholder="Email"
+                {...register("email")}
+                onBlur={() => trigger("email")}
+              />
+              <div className="error">{errors.email?.message}</div>
+            </div>
+
+            <div className="form-group">
+              <input
+                type="password"
+                className={getInputClass("password")}
+                placeholder="Password"
+                {...register("password")}
+                onBlur={() => trigger("password")}
+              />
+              <div className="error">{errors.password?.message}</div>
+            </div>
+
+            <div className="form-group">
+              <input
+                type="password"
+                className={getInputClass("confirmPassword")}
+                placeholder="Confirm Password"
+                {...register("confirmPassword")}
+                onBlur={() => trigger("confirmPassword")}
+              />
+              <div className="error">{errors.confirmPassword?.message}</div>
+            </div>
+
+            <button type="submit">Register</button>
+
+          </form>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

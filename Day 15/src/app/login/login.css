@@ -1,0 +1,32 @@
+.login {
+  background: var(--card);
+  padding: 30px;
+  border-radius: 12px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login__title {
+  text-align: center;
+  font-size: 22px;
+}
+
+.login__input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.login__button {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.login__button--primary {
+  background: var(--primary);
+  color: white;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Output File</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <link rel="stylesheet" href="./Modal.css">
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    
+    <script type="text/babel" src="./Modal.js"></script>
+    <script type="text/babel" src="./ModelDemo.jsx"></script>
+
+    <script type="text/babel">
+
+        function App () {
+            return <ModalDemo/>
+        }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+      
+    </script>
+  </body>
+</html>

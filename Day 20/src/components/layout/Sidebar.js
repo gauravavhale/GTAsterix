@@ -27,10 +27,15 @@ export default function Sidebar() {
       </h2>
 
       <nav className="space-y-2">
-        {menus.map(({ label, path, icon: Icon }) => (
+        {menus.map(({ label, path, icon: Icon }) => {
+
+          const isRoot = path === "/admin" || path === "/doctor" || path === "/patient";
+
+          return (
           <NavLink
             key={path}
             to={path}
+            end={isRoot}
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-2 rounded-lg transition
                ${
@@ -43,7 +48,8 @@ export default function Sidebar() {
             <Icon size={18} />
             {label}
           </NavLink>
-        ))}
+          )
+        })}
       </nav>
 
       <button

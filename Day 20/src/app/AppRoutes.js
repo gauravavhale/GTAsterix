@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../pages/auth/Login";
-// import Dashboard from "../pages/dashboard/Dashboard";
 import PatientList from "../pages/patients/PatientList";
 import ProtectedRoute from "./ProtectedRoute";
 import MainLayout from "../components/layout/MainLayout";
@@ -11,6 +10,8 @@ import DoctorDashboard from "../pages/dashboard/DoctorDashboard"
 import PatientDashboard from "../pages/dashboard/PatientDashboard"
 import Services from "../pages/services/Services";
 import PatientProfile from "../pages/patients/PatientProfile";
+import BookAppointment from "../pages/appointments/BookAppointment";
+import DoctorAppointments from "../pages/appointments/DoctorAppointments";
 
 export default function AppRoutes() {
   return (
@@ -48,6 +49,7 @@ export default function AppRoutes() {
         >
            <Route index element={<DoctorDashboard />} />
            <Route path="patients" element={<PatientList />} />
+           <Route path="appointments" element={<DoctorAppointments />} />
         </Route>
 
         {/* Patient Route */}
@@ -64,6 +66,7 @@ export default function AppRoutes() {
           <Route index element={<PatientDashboard/>} />
           <Route path="services" element={<Services/>} />
           <Route path="profile" element={<PatientProfile/>} />
+          <Route path="appointments" element={<BookAppointment />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/login" />} />

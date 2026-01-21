@@ -1,4 +1,4 @@
-import {Home,Users,ClipboardList,Stethoscope,User} from "lucide-react";
+import {Home,Users,ClipboardList,Stethoscope,User, Calendar} from "lucide-react";
 
 export const menuConfig = {
   admin: [
@@ -8,11 +8,14 @@ export const menuConfig = {
   ],
   doctor: [
     { label: "Dashboard", path: "/doctor", icon: Stethoscope },
+    { label: "Appointments", path: "/doctor/appointments", icon: Calendar },
     { label: "Patients", path: "/doctor/patients", icon: Users },
   ],
   patient: [
     { label: "Dashboard", path: "/patient", icon: Home },
+    { label: "Appointments", path: "/patient/appointments", icon: Calendar },
     { label: "Services", path: "/patient/services", icon: ClipboardList },
     { label: "Profile", path: "/patient/profile", icon: User },
   ],
 };
+
